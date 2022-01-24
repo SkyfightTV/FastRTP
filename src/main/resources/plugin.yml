@@ -1,9 +1,7 @@
 main: net.skyfighttv.fastrtp.Main
 author: SkyfightTV
-api-version: 1.17
-name: ARTP
+name: FastRTP
 version: 1.0
-depend:
-  - "Factions"
 commands:
   rtp:
+    usage: "/rtp [player]"

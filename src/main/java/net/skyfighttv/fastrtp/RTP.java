@@ -1,7 +1,5 @@
 package net.skyfighttv.fastrtp;
 
-import com.massivecraft.factions.Board;
-import com.massivecraft.factions.FLocation;
 import net.skyfighttv.fastrtp.utils.file.FileManager;
 import net.skyfighttv.fastrtp.utils.file.Files;
 import org.bukkit.HeightMap;
@@ -10,9 +8,9 @@ import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public final class RTP {
@@ -21,7 +19,7 @@ public final class RTP {
     private static final int MAX_RADIUS;
     private static final int RADIUS;
     private static final Random RANDOM;
-    private static final List<>
+    private static final List<Material> blackList;
 
     static {
         YamlConfiguration config = FileManager.getValues().get(Files.Config);
@@ -30,13 +28,15 @@ public final class RTP {
         MAX_RADIUS = config.getInt("maxRadius");
         RADIUS = MAX_RADIUS - MIN_RADIUS;
         RANDOM = new Random();
+        blackList = new ArrayList<>();
+        config.getStringList("blackListMaterial").forEach(s ->
+                blackList.add(Material.matchMaterial(s)));
     }
 
     public static void apply(Player player) {
         YamlConfiguration lang = FileManager.getValues().get(Files.Lang);
         int x;
         int z;
-        Material material;
         Location location = player.getLocation();
 
         do {
@@ -47,17 +47,13 @@ public final class RTP {
             if (RANDOM.nextBoolean())
                 z *= -1;
 
-            location.setX(x);
             location.setY(player.getWorld().getHighestBlockYAt(x, z, HeightMap.MOTION_BLOCKING_NO_LEAVES));
-            location.setZ(z);
+        } while (blackList.contains(player.getWorld().getBlockAt(x, (int) location.getY(), z).getType()));
 
-            material = location.add(0, -1, 0).getBlock().getType();
-        } while (!material.equals(Material.LAVA)
-                && !material.equals(Material.WATER)
-                && !Board.getInstance().getFactionAt(new FLocation(location)).isWilderness());
+        location.setX(x);
+        location.setZ(z);
 
-        player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 1, 255));
-        player.teleport(location.add(0.5, 2, 0.5), PlayerTeleportEvent.TeleportCause.COMMAND);
+        player.teleport(location.add(0.5, 1, 0.5), PlayerTeleportEvent.TeleportCause.COMMAND);
         player.sendMessage(lang.getString("SuccessfulRTP"));
     }
 

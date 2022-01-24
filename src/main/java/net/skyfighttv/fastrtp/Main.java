@@ -9,12 +9,12 @@ public final class Main extends JavaPlugin {
         instance = this;
     }
 
+    public static Main getInstance() {
+        return instance;
+    }
+
     @Override
     public void onEnable() {
         getCommand("rtp").setExecutor(new RTPCommand());
-    }
-
-    public static Main getInstance() {
-        return instance;
     }
 }
