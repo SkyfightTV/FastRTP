@@ -1,0 +1,6 @@
+PlayerNotFound: "Le joueur n'existe pas !"
+# Variables:
+# %player% : Player who was random tp
+PlayerTeleport: "Le joueur %player% a été rtp !"
+SuccessfulRTP: "Vous venez d'être téléporté aléatoirement !"
+DontHavePermission: "Vous n'avez pas la permission d'utiliser le rtp !"
