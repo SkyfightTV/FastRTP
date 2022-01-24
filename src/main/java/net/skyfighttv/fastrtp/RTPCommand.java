@@ -23,15 +23,19 @@ public final class RTPCommand implements CommandExecutor {
             else {
                 Player target = Bukkit.getPlayer(args[0]);
                 if (target == null) {
-                    sender.sendMessage(Objects.requireNonNull(lang.getString("PlayerNotFound")));
+                    sender.sendMessage(Objects.requireNonNull(lang.getString("PlayerNotFound"))
+                            .replaceAll("&", "§"));
                     return true;
                 }
 
                 RTP.apply(target);
-                sender.sendMessage(Objects.requireNonNull(lang.getString("PlayerTeleport")).replaceAll("%player%", target.getName()));
+                sender.sendMessage(Objects.requireNonNull(lang.getString("PlayerTeleport"))
+                        .replaceAll("%player%", target.getName())
+                        .replaceAll("&", "§"));
             }
         } else
-            sender.sendMessage(Objects.requireNonNull(lang.getString("DontHavePermission")));
+            sender.sendMessage(Objects.requireNonNull(lang.getString("DontHavePermission"))
+                    .replaceAll("&", "§"));
         return true;
     }
 }

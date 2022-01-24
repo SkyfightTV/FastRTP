@@ -11,6 +11,7 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 public final class RTP {
@@ -53,7 +54,8 @@ public final class RTP {
         } while (blackList.contains(location.getBlock().getType()));
 
         player.teleport(location.add(0.5, 1, 0.5), PlayerTeleportEvent.TeleportCause.COMMAND);
-        player.sendMessage(lang.getString("SuccessfulRTP"));
+        player.sendMessage(Objects.requireNonNull(lang.getString("SuccessfulRTP"))
+                .replaceAll("&", "§"));
     }
 
     public static String getPERMISSION() {
