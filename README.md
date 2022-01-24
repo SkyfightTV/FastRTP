@@ -13,8 +13,8 @@ Now you can offer a fast and latency-free random teleportation to your players!
 - /rtp[player]
   desciption: Starts an RTP on you or on the specified player.
   perm: "fastrtp"
-
-      A problem or a plugin is not complete for you ?
+  
+    A problem or a plugin is not complete for you ?
 
 You can pass on my discord (https://discord.gg/u8yzVac) or report it on my github.
 
