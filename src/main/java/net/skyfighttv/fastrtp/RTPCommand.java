@@ -24,7 +24,7 @@ public final class RTPCommand implements CommandExecutor {
                 Player target = Bukkit.getPlayer(args[0]);
                 if (target == null) {
                     sender.sendMessage(Objects.requireNonNull(lang.getString("PlayerNotFound")));
-                    return false;
+                    return true;
                 }
 
                 RTP.apply(target);
@@ -32,6 +32,6 @@ public final class RTPCommand implements CommandExecutor {
             }
         } else
             sender.sendMessage(Objects.requireNonNull(lang.getString("DontHavePermission")));
-        return false;
+        return true;
     }
 }

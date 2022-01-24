@@ -47,11 +47,10 @@ public final class RTP {
             if (RANDOM.nextBoolean())
                 z *= -1;
 
+            location.setX(x);
+            location.setZ(z);
             location.setY(player.getWorld().getHighestBlockYAt(x, z, HeightMap.MOTION_BLOCKING_NO_LEAVES));
-        } while (blackList.contains(player.getWorld().getBlockAt(x, (int) location.getY(), z).getType()));
-
-        location.setX(x);
-        location.setZ(z);
+        } while (blackList.contains(location.getBlock().getType()));
 
         player.teleport(location.add(0.5, 1, 0.5), PlayerTeleportEvent.TeleportCause.COMMAND);
         player.sendMessage(lang.getString("SuccessfulRTP"));
